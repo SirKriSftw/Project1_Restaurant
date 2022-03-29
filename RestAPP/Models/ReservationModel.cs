@@ -130,5 +130,52 @@ namespace RestAPP.Models
 
             return "Reservation for the " + resDateTime + " added successfully";
         }
+
+        public string EditReservation(int resID, DateTime resDateTime)
+        {
+            string query = "UPDATE Reservations SET resDateTime=@resDateTime WHERE resID=@resID";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@resID", resID);
+            cmd.Parameters.AddWithValue("@resDateTime", resDateTime);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "Reservation updated to " + resDateTime + " successfully";
+        }
+
+        public string DelReservation(int resID)
+        {
+            string query = "DELETE FROM Reservations WHERE resID=@resID";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@resID", resID);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "Reservation " + resID + " deleted successfully";
+        }
     }
 }
