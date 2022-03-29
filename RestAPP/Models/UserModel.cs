@@ -103,5 +103,55 @@ namespace RestAPP.Models
 
             return "User " + newUser.name + " added successfully";
         }
+
+        public string editUser(UserModel editUser, string newPass)
+        {
+            string query = "UPDATE Users SET username=@username, password=@newPass, name=@name WHERE userID = @userID AND password=@password";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@username", editUser.username);
+            cmd.Parameters.AddWithValue("@password", editUser.password);
+            cmd.Parameters.AddWithValue("@name", editUser.name);
+            cmd.Parameters.AddWithValue("@userID", editUser.userID);
+            cmd.Parameters.AddWithValue("@newPass", newPass);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "User " + editUser.name + " updated";
+        }
+
+        public string delUser(int userID)
+        {
+            string query = "DELETE FROM Users WHERE userID = @userID";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@userID", userID);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "User " + userID + " removed successfully";
+        }
     }
 }

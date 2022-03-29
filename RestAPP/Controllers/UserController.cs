@@ -52,5 +52,33 @@ namespace RestAPP.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut]
+        [Route("edituser")]
+        public IActionResult editUser(UserModel editUser, string newPassword)
+        {
+            try
+            {
+                return Created("", model.editUser(editUser, newPassword));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("deluser")]
+        public IActionResult delUser(int userID)
+        {
+            try
+            {
+                return Accepted(model.delUser(userID));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
