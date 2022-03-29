@@ -13,11 +13,11 @@ namespace RestAPP.Controllers
 
         [HttpGet]
         [Route("ulist")]
-        public IActionResult userList()
+        public IActionResult UserList()
         {
             try
             {
-                return Ok(model.getUsers());
+                return Ok(model.GetUsers());
             }
             catch (Exception ex)
             { 
@@ -27,11 +27,11 @@ namespace RestAPP.Controllers
 
         [HttpGet]
         [Route("uid")]
-        public IActionResult userByID(int userID)
+        public IActionResult UserByID(int userID)
         {
             try
             {
-                return Ok(model.getUser(userID));
+                return Ok(model.GetUser(userID));
             }
             catch (Exception ex)
             {
@@ -41,11 +41,11 @@ namespace RestAPP.Controllers
 
         [HttpPost]
         [Route("adduser")]
-        public IActionResult addUser(UserModel newUser)
+        public IActionResult AddUser(UserModel newUser)
         {
             try
             {
-                return Created("",model.addUser(newUser));
+                return Created("",model.AddUser(newUser));
             }
             catch (Exception ex)
             {
@@ -55,11 +55,11 @@ namespace RestAPP.Controllers
 
         [HttpPut]
         [Route("edituser")]
-        public IActionResult editUser(UserModel editUser, string newPassword)
+        public IActionResult EditUser(UserModel editUser, string newPassword)
         {
             try
             {
-                return Created("", model.editUser(editUser, newPassword));
+                return Created("", model.EditUser(editUser, newPassword));
             }
             catch (Exception ex)
             {
@@ -69,11 +69,11 @@ namespace RestAPP.Controllers
 
         [HttpDelete]
         [Route("deluser")]
-        public IActionResult delUser(int userID)
+        public IActionResult DelUser(int userID)
         {
             try
             {
-                return Accepted(model.delUser(userID));
+                return Accepted(model.DelUser(userID));
             }
             catch (Exception ex)
             {

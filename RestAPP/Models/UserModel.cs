@@ -15,7 +15,7 @@ namespace RestAPP.Models
         #endregion
         SqlConnection conn = new SqlConnection(@"server=DESKTOP-TDTK0RJ\KRISSQL;Initial Catalog=RestaurantProj1;Persist Security Info=True;User ID=sa;Password=rev511");
 
-        public List<UserModel> getUsers()
+        public List<UserModel> GetUsers()
         {
             string query = "SELECT * FROM Users";
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -45,7 +45,7 @@ namespace RestAPP.Models
             return users;
         }
 
-        public UserModel getUser(int userID)
+        public UserModel GetUser(int userID)
         {
             string query = "SELECT * FROM Users WHERE userID = @userID";
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -77,7 +77,7 @@ namespace RestAPP.Models
             return user;
         }
 
-        public string addUser(UserModel newUser)
+        public string AddUser(UserModel newUser)
         {
             string query = "INSERT INTO Users VALUES(@username, @password, @name, @isAdmin)";
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -103,7 +103,7 @@ namespace RestAPP.Models
             return "User " + newUser.name + " added successfully";
         }
 
-        public string editUser(UserModel editUser, string newPass)
+        public string EditUser(UserModel editUser, string newPass)
         {
             string query = "UPDATE Users SET username=@username, password=@newPass, name=@name WHERE userID = @userID AND password=@password";
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -130,7 +130,7 @@ namespace RestAPP.Models
             return "User " + editUser.name + " updated";
         }
 
-        public string delUser(int userID)
+        public string DelUser(int userID)
         {
             string query = "DELETE FROM Users WHERE userID = @userID";
             SqlCommand cmd = new SqlCommand(query, conn);
