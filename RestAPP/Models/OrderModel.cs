@@ -212,17 +212,6 @@ namespace RestAPP.Models
             return "Order #" + orderID + " deleted successfully";
         }
 
-
-
-
-
-
-
-
-
-
-
-
     }    
 }
 
