@@ -23,6 +23,8 @@ namespace RestAPP.Models
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                    throw new Exception("No users found");
                 while (reader.Read())
                 {
                     users.Add(new UserModel()

@@ -22,6 +22,8 @@ namespace RestAPP.Models
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                    throw new Exception("No orders found");
                 while (reader.Read())
                 {
                     orders.Add(new OrderModel()
@@ -86,6 +88,8 @@ namespace RestAPP.Models
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                    throw new Exception("No orders found");
                 while (reader.Read())
                 {
                     orders.Add(new OrderModel()
@@ -117,6 +121,8 @@ namespace RestAPP.Models
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                    throw new Exception("No orders found");
                 while (reader.Read())
                 {
                     orders.Add(new OrderModel()

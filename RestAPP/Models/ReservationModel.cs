@@ -23,6 +23,8 @@ namespace RestAPP.Models
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                    throw new Exception("No reservations found");
                 while (reader.Read())
                 {
                     reservations.Add(new ReservationModel()
@@ -54,6 +56,8 @@ namespace RestAPP.Models
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                    throw new Exception("No reservations found");
                 while (reader.Read())
                 {
                     reservations.Add(new ReservationModel()
