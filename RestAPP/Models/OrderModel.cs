@@ -22,7 +22,7 @@ namespace RestAPP.Models
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                if (!reader.HasRows)
                     throw new Exception("No orders found");
                 while (reader.Read())
                 {
@@ -88,7 +88,7 @@ namespace RestAPP.Models
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                if (!reader.HasRows)
                     throw new Exception("No orders found");
                 while (reader.Read())
                 {
