@@ -11,7 +11,6 @@ namespace RestAPP.Models
         public string username { get; set; }
         public string password { get; set; }
         public string name { get; set; }
-        public bool isAdmin { get; set; }
         #endregion
         SqlConnection conn = new SqlConnection(@"server=DESKTOP-TDTK0RJ\KRISSQL;Initial Catalog=RestaurantProj1;Persist Security Info=True;User ID=sa;Password=rev511");
 
@@ -30,7 +29,6 @@ namespace RestAPP.Models
                     {
                         userID = reader.GetInt32(0),
                         name = reader.GetString(3),
-                        isAdmin = reader.GetBoolean(4)
                     });
                 }
             }
@@ -59,7 +57,6 @@ namespace RestAPP.Models
                 {
                     user.userID = userID;
                     user.name = reader.GetString(3);
-                    user.isAdmin = reader.GetBoolean(4);
                 }
                 else
                 {
@@ -84,7 +81,6 @@ namespace RestAPP.Models
             cmd.Parameters.AddWithValue("@username",newUser.username);
             cmd.Parameters.AddWithValue("@password", newUser.password);
             cmd.Parameters.AddWithValue("@name", newUser.name);
-            cmd.Parameters.AddWithValue("@isAdmin", 0);
 
             try
             {
