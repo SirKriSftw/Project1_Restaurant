@@ -49,7 +49,7 @@ namespace RestAPP.Models
         {
             string query = "SELECT * FROM OrderedDishes WHERE orderID=@orderID";
             SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@orderID",orderID);
+            cmd.Parameters.AddWithValue("@orderID", orderID);
             List<OrderDishModel> orderedDishes = new List<OrderDishModel>();
             try
             {
@@ -80,7 +80,9 @@ namespace RestAPP.Models
 
         public List<OrderDishModel> GetResDishes(int resID)
         {
-            string query = "SELECT * FROM OrderedDishes WHERE orderID = (SELECT orderID FROM Orders WHERE resID=@resID)";
+            string query = "SELECT OD.orderID, dishID, quantity FROM OrderedDishes OD JOIN " +
+                "(SELECT O.orderID FROM Orders O JOIN Reservations R ON O.resID=@resID AND R.resID=@resID) " +
+                "AS ORes ON OD.orderID = ORes.orderID";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@resID", resID);
             List<OrderDishModel> orderedDishes = new List<OrderDishModel>();
@@ -113,7 +115,12 @@ namespace RestAPP.Models
 
         public List<OrderDishModel> GetUserDishes(int userID)
         {
-            string query = "SELECT * FROM OrderedDishes WHERE orderID = (SELECT orderID FROM Orders WHERE resID=(SELECT resID FROM Reservations WHERE userID=@userID))";
+            string query = "SELECT OD.orderID, dishID, quantity FROM OrderedDishes OD JOIN" +
+                " (SELECT O.orderID FROM Orders O JOIN " +
+                "(SELECT resID FROM Reservations R JOIN " +
+                "Users U ON R.userID = @userID AND U.userID = @userID) " +
+                "AS URes ON O.resID = URes.resID) " +
+                "AS ORes ON OD.orderID = ORes.orderID";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@userID", userID);
             List<OrderDishModel> orderedDishes = new List<OrderDishModel>();
@@ -142,6 +149,80 @@ namespace RestAPP.Models
                 conn.Close();
             }
             return orderedDishes;
+        }
+
+        public string AddOrderedDish(OrderDishModel newOrderDish)
+        {
+            string query = "INSERT INTO OrderedDishes VALUES(@orderID, @dishID, @qty)";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@orderID", newOrderDish.orderID);
+            cmd.Parameters.AddWithValue("@dishID", newOrderDish.dishID);
+            cmd.Parameters.AddWithValue("@qty", newOrderDish.quantity);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "New ordered dish added successfully";
+        }
+
+        public string EditOrderedDish(OrderDishModel editOrderDish)
+        {
+            string query = "UPDATE OrderedDishes SET quantity=@qty WHERE orderID=@orderID AND dishID=@dishID";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@orderID", editOrderDish.orderID);
+            cmd.Parameters.AddWithValue("@dishID", editOrderDish.dishID);
+            cmd.Parameters.AddWithValue("@qty", editOrderDish.quantity);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "Edited ordered dish successfully";
+        }
+
+        public string DelOrderedDish(int orderID, int dishID)
+        {
+            string query = "DELETE FROM OrderedDishes WHERE orderID=@orderID AND dishID=@dishID";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@orderID", orderID);
+            cmd.Parameters.AddWithValue("@dishID", dishID);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "Deleted ordered dish successfully";
         }
     }
 }
