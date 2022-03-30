@@ -76,7 +76,7 @@ namespace RestAPP.Models
 
         public string AddUser(UserModel newUser)
         {
-            string query = "INSERT INTO Users VALUES(@username, @password, @name, @isAdmin)";
+            string query = "INSERT INTO Users VALUES(@username, @password, @name)";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@username",newUser.username);
             cmd.Parameters.AddWithValue("@password", newUser.password);

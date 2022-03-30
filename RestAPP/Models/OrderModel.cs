@@ -43,6 +43,39 @@ namespace RestAPP.Models
             return orders;
         }
 
+        public OrderModel GetOrderByID(int orderID)
+        {
+            string query = "SELECT * FROM Orders WHERE orderID=@orderID";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@orderID",orderID);
+            OrderModel order = new OrderModel();
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    order.orderID = reader.GetInt32(0);
+                    order.resID = reader.GetInt32(1);
+                    order.cost = reader.GetDouble(2);
+                }
+
+                else
+                {
+                    throw new Exception("Order not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return order;
+        }
+
         public List<OrderModel> GetReservationOrders(int resID)
         {
             string query = "SELECT * FROM Orders WHERE resID=@resID";
@@ -105,6 +138,73 @@ namespace RestAPP.Models
             return orders;
         }
 
+        public string AddOrder(int resID)
+        {
+            string query = "INSERT INTO Orders VALUES(@resID,0)";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@resID", resID);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "Order added successfully to reservation #" + resID;
+        }
+
+        public string EditOrder(int orderID, int newResID)
+        {
+            string query = "UPDATE Orders SET resID=@resID WHERE orderID=@orderID";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@resID", newResID);
+            cmd.Parameters.AddWithValue("@orderID", orderID);
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "Order edited successfully to reservation #" + newResID;
+        }
+
+        public string DelOrder(int orderID)
+        {
+            string query = "DELETE FROM Orders WHERE orderID=@orderID";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@orderID", orderID);
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return "Order #" + orderID + " deleted successfully";
+        }
 
 
 

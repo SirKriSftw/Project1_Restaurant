@@ -26,6 +26,20 @@ namespace RestAPP.Controllers
         }
 
         [HttpGet]
+        [Route("oid")]
+        public IActionResult OrderByID(int orderID)
+        {
+            try
+            {
+                return Ok(model.GetOrderByID(orderID));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("oRlist")]
         public IActionResult OrderByRes(int resID)
         {
@@ -46,6 +60,48 @@ namespace RestAPP.Controllers
             try
             {
                 return Ok(model.GetUserOrders(userID));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("addorder")]
+        public IActionResult AddOrder(int resID)
+        {
+            try
+            {
+                return Created("", model.AddOrder(resID));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("editorder")]
+        public IActionResult EditOrder(int orderID, int newResID)
+        {
+            try
+            {
+                return Created("", model.EditOrder(orderID, newResID));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("delorder")]
+        public IActionResult DelOrder(int orderID)
+        {
+            try
+            {
+                return Accepted(model.DelOrder(orderID));
             }
             catch (Exception ex)
             {
