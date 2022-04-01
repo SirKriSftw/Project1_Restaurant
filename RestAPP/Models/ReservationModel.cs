@@ -11,6 +11,7 @@ namespace RestAPP.Models
         public int resID { get; set; }
         public int userID { get; set; }
         public DateTime resDateTime { get; set; }
+        public double total { get; set; } = 0.0;
         #endregion
         SqlConnection conn = new SqlConnection(@"server=DESKTOP-TDTK0RJ\KRISSQL;Initial Catalog=RestaurantProj1;Persist Security Info=True;User ID=sa;Password=rev511");
 
@@ -31,7 +32,8 @@ namespace RestAPP.Models
                     {
                         resID = reader.GetInt32(0),
                         userID = reader.GetInt32(1),
-                        resDateTime = reader.GetDateTime(2)
+                        resDateTime = reader.GetDateTime(2),
+                        total = reader.GetDouble(3)
                     });
                 }
             }
@@ -64,7 +66,8 @@ namespace RestAPP.Models
                     {
                         resID = reader.GetInt32(0),
                         userID = reader.GetInt32(1),
-                        resDateTime = reader.GetDateTime(2)
+                        resDateTime = reader.GetDateTime(2),
+                        total = reader.GetDouble(3)
                     });
                 }
             }
@@ -94,6 +97,7 @@ namespace RestAPP.Models
                     reservation.resID = resID;
                     reservation.userID = reader.GetInt32(1);
                     reservation.resDateTime = reader.GetDateTime(2);
+                    reservation.total = reader.GetDouble(3);
                 }
                 else
                 {
@@ -113,10 +117,11 @@ namespace RestAPP.Models
 
         public string AddReservation(int userID, DateTime resDateTime)
         {
-            string query = "INSERT INTO Reservations VALUES(@userID, @resDateTime)";
+            string query = "INSERT INTO Reservations VALUES(@userID, @resDateTime, @total)";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@userID", userID);
             cmd.Parameters.AddWithValue("@resDateTime", resDateTime);
+            cmd.Parameters.AddWithValue("@total", 0);
 
             try
             {
