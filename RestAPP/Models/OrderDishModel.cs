@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace RestAPP.Models
 {
@@ -176,6 +177,35 @@ namespace RestAPP.Models
             return "New ordered dish added successfully";
         }
 
+        public string AddMultipleOrderedDishes(List<OrderDishModel> newOrderedDishes)
+        {
+            string output = "Sucessfully added ";
+            string query = "INSERT INTO OrderedDishes VALUES(@orderID, @dishID, @qty)";
+            SqlCommand cmd;
+            try
+            {
+                conn.Open();
+                foreach (OrderDishModel newOrderDish in newOrderedDishes)
+                {
+                    cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@orderID", newOrderDish.orderID);
+                    cmd.Parameters.AddWithValue("@dishID", newOrderDish.dishID);
+                    cmd.Parameters.AddWithValue("@qty", newOrderDish.quantity);
+                    cmd.ExecuteNonQuery();
+                    output = output + " " + newOrderDish.dishID;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return output;
+        }
         public string EditOrderedDish(OrderDishModel editOrderDish)
         {
             string query = "UPDATE OrderedDishes SET quantity=@qty WHERE orderID=@orderID AND dishID=@dishID";

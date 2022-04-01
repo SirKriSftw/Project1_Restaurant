@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using RestAPP.Models;
+using System.Collections.Generic;
 
 namespace RestAPP.Controllers
 {
@@ -74,6 +75,20 @@ namespace RestAPP.Controllers
             try
             {
                 return Created("", model.AddOrderedDish(newOrderDish));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("addordereddishes")]
+        public IActionResult AddOrderedDishes(List<OrderDishModel> newOrderDish)
+        {
+            try
+            {
+                return Created("", model.AddMultipleOrderedDishes(newOrderDish));
             }
             catch (Exception ex)
             {
