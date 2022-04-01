@@ -76,7 +76,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Failed to edit user: " + editUser.username);
+                _logger.LogError("Failed to edit user: " + editUser.username);
                 return BadRequest(ex.Message);
             }
         }

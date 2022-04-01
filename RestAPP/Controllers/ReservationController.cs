@@ -108,7 +108,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Failed to delete reservation: " + resID);
+                _logger.LogError("Failed to delete reservation: " + resID);
                 return BadRequest(ex.Message);
             }
         }

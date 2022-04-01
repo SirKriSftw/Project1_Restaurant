@@ -78,7 +78,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Failed to get ordered dishes for order: " + orderID);
+                _logger.LogError("Failed to get ordered dishes for order: " + orderID);
                 return BadRequest(ex.Message);
             }
         }
