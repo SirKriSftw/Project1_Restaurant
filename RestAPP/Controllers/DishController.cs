@@ -28,7 +28,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get any dishes");
+                _logger.LogError(ex,"Failed to get any dishes");
                 return BadRequest(ex.Message);
             }
         }
@@ -44,7 +44,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get dish: " + dishID);
+                _logger.LogError(ex,"Failed to get dish: " + dishID);
                 return BadRequest(ex.Message);
             }
         }
@@ -60,7 +60,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to add dish: " + name);
+                _logger.LogError(ex,"Failed to add dish: " + name);
                 return BadRequest(ex.Message);
             }
         }
@@ -76,7 +76,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to edit dish: " + editDish.dishID);
+                _logger.LogError(ex,"Failed to edit dish: " + editDish.dishID);
                 return BadRequest(ex.Message);
             }
         }
@@ -92,7 +92,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to delete dish: " + dishID);
+                _logger.LogError(ex,"Failed to delete dish: " + dishID);
                 return BadRequest(ex.Message);
             }
         }

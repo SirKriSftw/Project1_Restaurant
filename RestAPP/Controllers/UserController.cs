@@ -28,7 +28,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get any users");
+                _logger.LogError(ex, "Failed to get any users");
                 return BadRequest(ex.Message);
             }
         }
@@ -44,7 +44,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get user: " + userID);
+                _logger.LogError(ex, "Failed to get user: " + userID);
                 return BadRequest(ex.Message);
             }
         }
@@ -60,7 +60,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to add user: " + newUser.username);
+                _logger.LogError(ex, "Failed to add user: " + newUser.username);
                 return BadRequest(ex.Message);
             }
         }
@@ -76,7 +76,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to edit user: " + editUser.username);
+                _logger.LogError(ex, "Failed to edit user: " + editUser.username);
                 return BadRequest(ex.Message);
             }
         }
@@ -92,7 +92,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to delete user: " + userID);
+                _logger.LogError(ex, "Failed to delete user: " + userID);
                 return BadRequest(ex.Message);
             }
         }

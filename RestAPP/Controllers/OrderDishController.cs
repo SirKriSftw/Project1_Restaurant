@@ -30,7 +30,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get any ordered dishes");
+                _logger.LogError(ex,"Failed to get any ordered dishes");
                 return BadRequest(ex.Message);
             }
         }
@@ -46,7 +46,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get ordered dishes by user: " + userID);
+                _logger.LogError(ex,"Failed to get ordered dishes by user: " + userID);
                 return BadRequest(ex.Message);
             }
         }
@@ -62,7 +62,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get ordered dishes for reservation: " + resID);
+                _logger.LogError(ex,"Failed to get ordered dishes for reservation: " + resID);
                 return BadRequest(ex.Message);
             }
         }
@@ -78,7 +78,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get ordered dishes for order: " + orderID);
+                _logger.LogError(ex,"Failed to get ordered dishes for order: " + orderID);
                 return BadRequest(ex.Message);
             }
         }
@@ -94,7 +94,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to add ordered dish for order: " + newOrderDish.orderID);
+                _logger.LogError(ex,"Failed to add ordered dish for order: " + newOrderDish.orderID);
                 return BadRequest(ex.Message);
             }
         }
@@ -110,7 +110,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to add ordered dishes");
+                _logger.LogError(ex,"Failed to add ordered dishes");
                 return BadRequest(ex.Message);
             }
         }
@@ -126,7 +126,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to edit ordered dish for order: " + editOrderDish.orderID);
+                _logger.LogError(ex,"Failed to edit ordered dish for order: " + editOrderDish.orderID);
                 return BadRequest(ex.Message);
             }
         }
@@ -142,7 +142,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to delete ordered dish: " + dishID + " from order " + orderID);
+                _logger.LogError(ex,"Failed to delete ordered dish: " + dishID + " from order " + orderID);
                 return BadRequest(ex.Message);
             }
         }

@@ -28,7 +28,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get any reservations");
+                _logger.LogError(ex,"Failed to get any reservations");
                 return BadRequest(ex.Message);
             }
         }
@@ -44,7 +44,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get reservation: " + resID);
+                _logger.LogError(ex,"Failed to get reservation: " + resID);
                 return BadRequest(ex.Message);
             }
         }
@@ -60,7 +60,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get reservations by user: " + userID);
+                _logger.LogError(ex,"Failed to get reservations by user: " + userID);
                 return BadRequest(ex.Message);
             }
         }
@@ -76,7 +76,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to add reservation for user: " + userID + " at " + resDateTime);
+                _logger.LogError(ex,"Failed to add reservation for user: " + userID + " at " + resDateTime);
                 return BadRequest(ex.Message);
             }
         }
@@ -92,7 +92,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to edit reservation: " + resID + " to " + resDateTime);
+                _logger.LogError(ex,"Failed to edit reservation: " + resID + " to " + resDateTime);
                 return BadRequest(ex.Message);
             }
         }
@@ -108,7 +108,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to delete reservation: " + resID);
+                _logger.LogError(ex,"Failed to delete reservation: " + resID);
                 return BadRequest(ex.Message);
             }
         }

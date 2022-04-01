@@ -28,7 +28,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get any order");
+                _logger.LogError(ex,"Failed to get any order");
                 return BadRequest(ex.Message);
             }
         }
@@ -44,7 +44,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get order: " + orderID);
+                _logger.LogError(ex,"Failed to get order: " + orderID);
                 return BadRequest(ex.Message);
             }
         }
@@ -60,7 +60,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get order for reservation: " + resID);
+                _logger.LogError(ex,"Failed to get order for reservation: " + resID);
                 return BadRequest(ex.Message);
             }
         }
@@ -76,7 +76,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to get order for user: " + userID);
+                _logger.LogError(ex,"Failed to get order for user: " + userID);
                 return BadRequest(ex.Message);
             }
         }
@@ -92,7 +92,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to add order for reservation: " + resID);
+                _logger.LogError(ex,"Failed to add order for reservation: " + resID);
                 return BadRequest(ex.Message);
             }
         }
@@ -108,7 +108,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to edit order: " + orderID);
+                _logger.LogError(ex,"Failed to edit order: " + orderID);
                 return BadRequest(ex.Message);
             }
         }
@@ -124,7 +124,7 @@ namespace RestAPP.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to delete order: " + orderID);
+                _logger.LogError(ex,"Failed to delete order: " + orderID);
                 return BadRequest(ex.Message);
             }
         }
