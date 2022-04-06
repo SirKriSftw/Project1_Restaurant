@@ -97,22 +97,6 @@ namespace RestAPP.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("editorder")]
-        public IActionResult EditOrder(int orderID, int newResID)
-        {
-            _logger.LogInformation("Changing order: " + orderID + " to reservation " + newResID);
-            try
-            {
-                return Created("", model.EditOrder(orderID, newResID));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex,"Failed to edit order: " + orderID);
-                return BadRequest(ex.Message);
-            }
-        }
-
         [HttpDelete]
         [Route("delorder")]
         public IActionResult DelOrder(int orderID)
