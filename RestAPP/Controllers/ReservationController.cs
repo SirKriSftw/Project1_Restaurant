@@ -67,32 +67,32 @@ namespace RestAPP.Controllers
 
         [HttpPost]
         [Route("addres")]
-        public IActionResult AddReservation(int userID, DateTime resDateTime)
+        public IActionResult AddReservation(int userID, DateTime resDateTime, int numOfGuests)
         {
-            _logger.LogInformation("Adding reservation for user: " + userID + " at " + resDateTime);
+            _logger.LogInformation("Adding reservation for user: " + userID + " at " + resDateTime + " with " + numOfGuests + " guests");
             try
             {
-                return Created("", model.AddReservation(userID, resDateTime));
+                return Created("", model.AddReservation(userID, resDateTime, numOfGuests));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,"Failed to add reservation for user: " + userID + " at " + resDateTime);
+                _logger.LogError(ex,"Failed to add reservation for user: " + userID + " at " + resDateTime + " with " + numOfGuests + " guests");
                 return BadRequest(ex.Message);
             }
         }
 
         [HttpPut]
         [Route("editres")]
-        public IActionResult EditReservation(int resID, DateTime resDateTime)
+        public IActionResult EditReservation(int resID, DateTime resDateTime, int numOfGuests)
         {
-            _logger.LogInformation("Editing reservation: " + resID + " to " + resDateTime);
+            _logger.LogInformation("Editing reservation: " + resID + " to " + resDateTime + " with " + numOfGuests + " guests");
             try
             {
-                return Created("", model.EditReservation(resID, resDateTime));
+                return Created("", model.EditReservation(resID, resDateTime, numOfGuests));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,"Failed to edit reservation: " + resID + " to " + resDateTime);
+                _logger.LogError(ex,"Failed to edit reservation: " + resID + " to " + resDateTime + " with " + numOfGuests + " guests");
                 return BadRequest(ex.Message);
             }
         }

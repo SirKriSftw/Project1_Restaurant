@@ -11,6 +11,7 @@ namespace RestAPP.Models
         public int resID { get; set; }
         public int userID { get; set; }
         public DateTime resDateTime { get; set; }
+        public int numOfGuests { get; set; }
         public double total { get; set; } = 0.0;
         #endregion
         SqlConnection conn = new SqlConnection(@"server=DESKTOP-TDTK0RJ\KRISSQL;Initial Catalog=RestaurantProj1;Persist Security Info=True;User ID=sa;Password=rev511");
@@ -33,7 +34,8 @@ namespace RestAPP.Models
                         resID = reader.GetInt32(0),
                         userID = reader.GetInt32(1),
                         resDateTime = reader.GetDateTime(2),
-                        total = reader.GetDouble(3)
+                        numOfGuests = reader.GetInt32(3),
+                        total = reader.GetDouble(4)
                     });
                 }
             }
@@ -67,7 +69,8 @@ namespace RestAPP.Models
                         resID = reader.GetInt32(0),
                         userID = reader.GetInt32(1),
                         resDateTime = reader.GetDateTime(2),
-                        total = reader.GetDouble(3)
+                        numOfGuests= reader.GetInt32(3),
+                        total = reader.GetDouble(4)
                     });
                 }
             }
@@ -97,7 +100,8 @@ namespace RestAPP.Models
                     reservation.resID = resID;
                     reservation.userID = reader.GetInt32(1);
                     reservation.resDateTime = reader.GetDateTime(2);
-                    reservation.total = reader.GetDouble(3);
+                    reservation.numOfGuests = reader.GetInt32(3);
+                    reservation.total = reader.GetDouble(4);
                 }
                 else
                 {
@@ -115,13 +119,13 @@ namespace RestAPP.Models
             return reservation;
         }
 
-        public string AddReservation(int userID, DateTime resDateTime)
+        public string AddReservation(int userID, DateTime resDateTime, int numOfGuests)
         {
-            string query = "INSERT INTO Reservations VALUES(@userID, @resDateTime, @total)";
+            string query = "INSERT INTO Reservations VALUES(@userID, @resDateTime, @numOfGuests, 0)";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@userID", userID);
             cmd.Parameters.AddWithValue("@resDateTime", resDateTime);
-            cmd.Parameters.AddWithValue("@total", 0);
+            cmd.Parameters.AddWithValue("@numOfGuests", numOfGuests);
 
             try
             {
@@ -137,15 +141,16 @@ namespace RestAPP.Models
                 conn.Close();
             }
 
-            return "Reservation for the " + resDateTime + " added successfully";
+            return "Reservation for " + resDateTime + " with " + numOfGuests + " guests added successfully";
         }
 
-        public string EditReservation(int resID, DateTime resDateTime)
+        public string EditReservation(int resID, DateTime resDateTime, int newNumOfGuests)
         {
-            string query = "UPDATE Reservations SET resDateTime=@resDateTime WHERE resID=@resID";
+            string query = "UPDATE Reservations SET resDateTime=@resDateTime, numOfGuests = @numOfGuests WHERE resID=@resID";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@resID", resID);
             cmd.Parameters.AddWithValue("@resDateTime", resDateTime);
+            cmd.Parameters.AddWithValue("@numOfGuests", newNumOfGuests);
 
             try
             {
@@ -161,7 +166,7 @@ namespace RestAPP.Models
                 conn.Close();
             }
 
-            return "Reservation updated to " + resDateTime + " successfully";
+            return "Reservation updated to " + resDateTime + " successfully with " + newNumOfGuests + " guests";
         }
 
         public string DelReservation(int resID)

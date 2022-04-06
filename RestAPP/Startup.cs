@@ -26,7 +26,13 @@ namespace RestAPP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                { 
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -43,6 +49,8 @@ namespace RestAPP
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestAPP v1"));
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
