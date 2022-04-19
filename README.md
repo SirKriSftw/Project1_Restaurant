@@ -29,9 +29,9 @@ TODO:
 * Either move DB to the cloud or get the connection string to be accessed from one place so it is easier to udpate
 
 ## Getting Started
-git clone https://github.com/SirKriSftw/Project1_Restaurant
-Since I used a local DB, connection string will have to be updated using your connection string for a DB with the same tables setup (use database .bak file)
-Then run on Visual Studio using IIS and swagger should appear with all the API calls 
+* git clone https://github.com/SirKriSftw/Project1_Restaurant
+* I used a local DB, connection string will have to be updated using your connection string for a DB with the same tables setup (use database .bak file)
+* Run on Visual Studio using IIS and swagger should appear with all the API calls 
 
 ## Usage
 Once running you should see several REST API calls
